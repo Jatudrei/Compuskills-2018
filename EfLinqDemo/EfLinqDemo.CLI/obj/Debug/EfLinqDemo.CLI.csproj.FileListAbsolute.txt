@@ -1,0 +1,14 @@
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EfLinqDemo.CLI.exe.config
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EfLinqDemo.CLI.exe
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EfLinqDemo.CLI.pdb
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EfLinqDemo.DataAccess.dll
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EntityFramework.dll
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EfLinqDemo.DataAccess.pdb
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EfLinqDemo.DataAccess.dll.config
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EntityFramework.xml
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\obj\Debug\EfLinqDemo.CLI.csprojResolveAssemblyReference.cache
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\obj\Debug\EfLinqDemo.CLI.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\obj\Debug\EfLinqDemo.CLI.exe
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.CLI\obj\Debug\EfLinqDemo.CLI.pdb

@@ -1,0 +1,11 @@
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\bin\Debug\EfLinqDemo.DataAccess.dll.config
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\bin\Debug\EfLinqDemo.DataAccess.dll
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\bin\Debug\EfLinqDemo.DataAccess.pdb
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\obj\Debug\EfLinqDemo.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\obj\Debug\EfLinqDemo.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\obj\Debug\EfLinqDemo.DataAccess.dll
+C:\Users\Admin\source\repos\EfLinqDemo\EfLinqDemo.DataAccess\obj\Debug\EfLinqDemo.DataAccess.pdb
