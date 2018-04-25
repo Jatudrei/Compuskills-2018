@@ -10,13 +10,16 @@ namespace EfLinqDemo.CLI
         {
             using (NorthwindContext ctx = new NorthwindContext())
             {
-                foreach (var product in ctx.Products.Where(p => p.UnitsInStock.HasValue && p.UnitsInStock.Value >= 5))
-                {
-                    Console.WriteLine($"Product Name: {product.ProductName}, In Stock: {product.UnitsInStock ?? 0}");
-                }
+                var input = Console.ReadLine();
 
-                var cntProducts = ctx.Products.Count();
-                Console.WriteLine($"There {cntProducts} products in the Northwind DB.");
+                var matches = from p in ctx.Products
+                              where p.ProductName.Contains(input)
+                              select p;
+
+                foreach (var product in matches)
+                {
+                    Console.WriteLine($"Product Name: {product.ProductName}");
+                }
             }
 
             Console.ReadKey();
