@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <title>Lesson 9 - Transaction Manager Demo - Model Driven Version</title>
+
+    <script>
+        angular
+            .module("app", [])
+
+            .value("totals", { paid: 0, received: 0 })
+            .value("transactions", [])
+
+            .controller("TableController", function (totals, transactions) {
+                var vm = this;
+
+                vm.edit = edit;
+                vm.remove = remove;
+                vm.save = save;
+                vm.updateTotals = updateTotals;
+
+                init();
+
+                function edit(transaction) {
+                    transaction.inEditMode = true;
+                    vm.updateTotals();
+                }
+
+                function init() {
+                    vm.transactions = transactions;
+                    vm.totals = totals;
+                }
+
+                function remove(transaction) {
+                    for (var i = 0; i < vm.transactions.length; i++) {
+                        if (vm.transactions[i] === transaction) {
+                            vm.transactions.splice(i, 1);
+                            break;
+                        }
+                    }
+
+                    vm.updateTotals();
+                }
+
+                function save(transaction) {
+                    transaction.inEditMode = false;
+                    vm.updateTotals();
+                }
+
+                function updateTotals() {
+                    var newTotals = vm.transactions.reduce(function (accumulator, current) {
+                        return {
+                            paid: accumulator.paid + current.paid,
+                            received: accumulator.received + current.received
+                        };
+                    }, { paid: 0, received: 0 });
+
+                    vm.totals.paid = newTotals.paid;
+                    vm.totals.received = newTotals.received;
+                }
+            })
+
+            .controller("ToolbarController", function (totals, transactions) {
+                var vm = this;
+
+                vm.addTrans = addTrans;
+                vm.removeAllTrans = removeAllTrans;
+
+                init();
+
+                function addTrans() {
+                    transactions.push({ inEditMode: true });
+                }
+
+                function init() {
+                    vm.transactions = transactions;
+                }
+
+                function removeAllTrans() {
+                    if (confirm("Are you sure you want to remove ALL transactions?")) {
+                        transactions.length = 0;
+                        totals.paid = 0;
+                        totals.received = 0;
+                    }
+                }
+            });
+    </script>
+</head>
+<body class="container" ng-app="app">
+    <div class="row">
+        <div class="col-md-12" ng-controller="ToolbarController as barCtrl">
+            <button type="button" class="btn btn-default" ng-click="barCtrl.addTrans()"><span class="fa fa-plus"></span> Add Transaction</button>
+            <button type="button" class="btn btn-danger" ng-click="barCtrl.removeAllTrans()" ng-show="barCtrl.transactions.length"><span class="fa fa-trash"></span> Remove All</button>
+        </div>
+    </div>
+
+    <table class="table" ng-controller="TableController as tblCtrl">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Payee</th>
+                <th>Paid</th>
+                <th>Received</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="transaction in tblCtrl.transactions">
+                <td><input type="date" ng-model="transaction.date" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.date | date }}</span></td>
+                <td><input type="text" ng-model="transaction.payee" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.payee }}</span></td>
+                <td><input type="number" ng-model="transaction.paid" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.paid | currency }}</span></td>
+                <td><input type="number" ng-model="transaction.received" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.received | currency }}</span></td>
+                <td>
+                    <button type="button" class="btn btn-primary" ng-click="tblCtrl.save(transaction)" ng-show="transaction.inEditMode"><span class="fa fa-floppy-o"></span> Save</button>
+                    <button type="button" class="btn btn-default" ng-click="tblCtrl.edit(transaction)" ng-show="!transaction.inEditMode"><span class="fa fa-pencil"></span> Edit</button>
+                    <button type="button" class="btn btn-danger" ng-click="tblCtrl.remove(transaction)"><span class="fa fa-trash"></span> Remove</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr class="table-info">
+                <td></td>
+                <td></td>
+                <td>{{ tblCtrl.totals.paid | currency }}</td>
+                <td>{{ tblCtrl.totals.received | currency }}</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
