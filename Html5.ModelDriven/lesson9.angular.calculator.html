@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <title>Lesson 9 - Calculator</title>
+
+    <script>
+        angular
+            // Define the app
+            .module("app", [])
+
+            // Create the controller
+            .controller("CalculatorController", function () {
+                var vm = this;
+
+                vm.add = add;
+                vm.divide = divide;
+                vm.multiply = multiply;
+                vm.subtract = subtract;
+
+                vm.ops = [];
+                vm.result = 0;
+
+                function add(operand) {
+                    vm.result += operand;
+                    vm.ops.push({ operator: "+", operand: operand, result: vm.result });
+                }
+
+                function divide(operand) {
+                    vm.result /= operand;
+                    vm.ops.push({ operator: "/", operand: operand, result: vm.result });
+                }
+
+                function multiply(operand) {
+                    vm.result *= operand;
+                    vm.ops.push({ operator: "*", operand: operand, result: vm.result });
+                }
+
+                function subtract(operand) {
+                    vm.result -= operand;
+                    vm.ops.push({ operator: "-", operand: operand, result: vm.result });
+                }
+            });
+    </script>
+</head>
+<body ng-app="app" class="container">
+    <div class="row" ng-controller="CalculatorController as calcCtrl">
+        <div class="col-md-12 row">
+            <label class="col-md-4">Next Operand</label>
+            <div class="col-md-8">
+                <input class="form-control" type="number" ng-model="calcCtrl.operand" />
+            </div>
+        </div>
+
+        <div class="col-md-12 row">
+            <label class="col-md-4">Operator</label>
+            <div class="col-md-8">
+                <button class="btn btn-default" ng-click="calcCtrl.add(calcCtrl.operand)">+</button>
+                <button class="btn btn-default" ng-click="calcCtrl.subtract(calcCtrl.operand)">-</button>
+                <button class="btn btn-default" ng-click="calcCtrl.multiply(calcCtrl.operand)">*</button>
+                <button class="btn btn-default" ng-click="calcCtrl.divide(calcCtrl.operand)">/</button>
+            </div>
+        </div>
+
+        <div class="col-md-12 row">
+            <label class="col-md-4">Result</label>
+            <div class="col-md-8">
+                <span class="form-static">{{ calcCtrl.result }}</span>
+            </div>
+        </div>
+
+        <div class="col-md-12 row">
+            <label class="col-md-4">Previous Operations</label>
+            <div class="col-md-8">
+                <ul class="list-unstyled">
+                    <li ng-repeat="op in calcCtrl.ops">
+                        {{ op.operator }} {{ op.operand }} = {{ op.result }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

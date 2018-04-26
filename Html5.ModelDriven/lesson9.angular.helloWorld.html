@@ -10,9 +10,12 @@
 
     <script>
         angular
+            // Define the app
             .module("app", [])
 
+            // Create the controller
             .controller("HWController", function ($scope) {
+                // Define a method for the view to call
                 $scope.setName = function (name) {
                     $scope.name = name;
                 };
