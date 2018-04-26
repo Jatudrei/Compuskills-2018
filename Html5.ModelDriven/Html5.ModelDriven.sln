@@ -7,20 +7,21 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Html5.ModelDriven", ".", "{
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_54974"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\Documents\Development\compuskills-2018\Html5.ModelDriven\"
+		Debug.AspNetCompiler.PhysicalPath = "..\Html5.ModelDriven\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54974\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_54974"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\Documents\Development\compuskills-2018\Html5.ModelDriven\"
+		Release.AspNetCompiler.PhysicalPath = "..\Html5.ModelDriven\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54974\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "54974"
+		SlnRelativePath = "..\Html5.ModelDriven\"
 	EndProjectSection
 EndProject
 Global
