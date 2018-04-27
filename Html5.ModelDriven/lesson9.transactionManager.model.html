@@ -110,10 +110,10 @@
         </thead>
         <tbody>
             <tr ng-repeat="transaction in tblCtrl.transactions">
-                <td><input type="date" ng-model="transaction.date" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.date | date }}</span></td>
+                <td><input type="date" ng-model="transaction.date" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.date | date:'short' }}</span></td>
                 <td><input type="text" ng-model="transaction.payee" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.payee }}</span></td>
                 <td><input type="number" ng-model="transaction.paid" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.paid | currency }}</span></td>
-                <td><input type="number" ng-model="transaction.received" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.received | currency }}</span></td>
+                <td><input type="number" ng-model="transaction.received" class="form-control" ng-show="transaction.inEditMode" /><span class="form-static" ng-show="!transaction.inEditMode">{{ transaction.received | currency:'\u20aa' }}</span></td>
                 <td>
                     <button type="button" class="btn btn-primary" ng-click="tblCtrl.save(transaction)" ng-show="transaction.inEditMode"><span class="fa fa-floppy-o"></span> Save</button>
                     <button type="button" class="btn btn-default" ng-click="tblCtrl.edit(transaction)" ng-show="!transaction.inEditMode"><span class="fa fa-pencil"></span> Edit</button>
