@@ -13,7 +13,7 @@
         angular
             .module("app", ["ngMessages"])
 
-            .controller("MyFormController", function () {
+            .controller("MyFormController", function ($http) {
                 var vm = this;
 
                 vm.firstName = "Yaakov";
@@ -24,14 +24,80 @@
                 function init() {
                     vm.items = [];
                     vm.editing = {};
+
+                    $http({
+                        url: "lesson11.forms.html",
+                        method: "GET"
+                    })
+                        .then(function (httpResponse) {
+                            vm.items = httpResponse.data;
+                        });
                 }
 
                 function save() {
                     vm.editing.createdAt = new Date();
-                    vm.items.push(vm.editing);
+                    vm.loading = true;
 
-                    vm.editing = {};
+                    $http({
+                        url: "lesson11.forms.html",
+                        method: "POST",
+                        data: vm.editing
+                    })
+                        .then(function (httpResponse) {
+                            vm.items.push(vm.editing);
+                            vm.editing = {};
+                        })
+                        .catch(function (err) {
+                            alert(err);
+                        })
+                        .finally(function () {
+                            vm.loading = false;
+                        });
                 }
+            })
+
+            .directive("removeTimezone", function () {
+                return {
+                    require: "ngModel",
+                    link: function (scope, element, attrs, ngModelCtrl) {
+                        ngModelCtrl.$parsers.push(function (viewValue) {
+                            return new Date(Date.UTC(viewValue.getFullYear(), viewValue.getMonth(), viewValue.getDate()));
+                        });
+                    }
+                };
+            })
+
+            .directive("removeIs", function () {
+                return {
+                    require: "ngModel",
+                    link: function (scope, element, attrs, ngModelCtrl) {
+                        ngModelCtrl.$parsers.push(function (viewValue) {
+                            return viewValue.replace(/i/, "");
+                        });
+                    }
+                };
+            })
+
+            .directive("removeControlCharacters", function () {
+                return {
+                    require: "ngModel",
+                    link: function (scope, element, attrs, ngModelCtrl) {
+                        ngModelCtrl.$formatters.push(function (modelValue) {
+                            return modelValue.replace(/\*/, "");
+                        });
+                    }
+                };
+            })
+
+            .directive("hebrewOnly", function () {
+                return {
+                    require: "ngModel",
+                    link: function (scope, element, attrs, ngModelCtrl) {
+                        ngModelCtrl.$validators.hebrewOnly = function (viewValue) {
+                            return viewValue && /^[א-ת]*$/.test(viewValue);
+                        };
+                    }
+                };
             });
     </script>
 
@@ -43,6 +109,19 @@
         .form-group .ng-dirty.ng-valid {
             border: 1px solid green;
         }
+
+        #mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.2);
+            width:100vw;
+            height:100vh;
+        }
+
+        #mask::after{
+            content: 'this is contents';
+        }
     </style>
 </head>
 
@@ -52,7 +131,7 @@
             <div class="form-group">
                 <label class="col-md-3">First Name</label>
                 <div class="col-md-9">
-                    <input type="text" name="firstName" class="form-control" ng-model="ctrl.editing.firstName" required minlength="4" />
+                    <input type="text" name="firstName" class="form-control" ng-model="ctrl.editing.firstName" required minlength="4" hebrew-only />
                     <div ng-messages="myForm.firstName.$error" role="alert">
                         <div ng-message="required">First Name is required</div>
                         <div ng-message="minlength">First Name must be 4 characters</div>
@@ -82,6 +161,13 @@
             </div>
 
             <div class="form-group">
+                <label class="col-md-3">Birthdate</label>
+                <div class="col-md-9">
+                    <input type="date" class="form-control" ng-model="ctrl.editing.birthdate" remove-timezone />
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-md-offset-3 col-md-9">
                     <button class="btn btn-primary">Send</button>
                 </div>
@@ -103,6 +189,8 @@
                 </div>
             </li>
         </ul>
+        
+        <div id="mask" ng-show="ctrl.loading"></div>
     </div>
 </body>
 </html>
