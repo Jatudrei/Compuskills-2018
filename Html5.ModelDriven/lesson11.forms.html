@@ -6,11 +6,12 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-messages.min.js"></script>
     <title>Lesson 11 - Forms</title>
 
     <script>
         angular
-            .module("app", [])
+            .module("app", ["ngMessages"])
 
             .controller("MyFormController", function () {
                 var vm = this;
@@ -52,7 +53,7 @@
                 <label class="col-md-3">First Name</label>
                 <div class="col-md-9">
                     <input type="text" name="firstName" class="form-control" ng-model="ctrl.editing.firstName" required minlength="4" />
-                    <div ng-messages="myForm.firstName.$error">
+                    <div ng-messages="myForm.firstName.$error" role="alert">
                         <div ng-message="required">First Name is required</div>
                         <div ng-message="minlength">First Name must be 4 characters</div>
                     </div>
