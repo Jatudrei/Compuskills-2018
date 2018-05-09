@@ -8,6 +8,11 @@ namespace EfLinqDemo.CLI
     {
         static void Main(string[] args)
         {
+            Lesson13_IEnumerableDemo.BasicWithLinq();
+        }
+
+        static void BasicEfExample()
+        {
             using (NorthwindContext ctx = new NorthwindContext())
             {
                 var input = Console.ReadLine();
