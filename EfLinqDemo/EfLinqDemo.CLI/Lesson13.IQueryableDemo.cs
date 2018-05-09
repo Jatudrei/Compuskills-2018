@@ -14,6 +14,7 @@ namespace EfLinqDemo.CLI
             using (NorthwindContext ctx = new NorthwindContext())
             {
                 var products = ctx.Products.AsEnumerable();
+                var count = products.Count();
             }
         }
     }
