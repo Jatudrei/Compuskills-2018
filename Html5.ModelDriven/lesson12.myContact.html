@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lesson 12 - My Contact</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script>
+        (function () {
+            "use strict";
+
+            angular
+                .module("app", []);
+        })();
+    </script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            angular
+                .module("app")
+                .directive("myContact", myContact);
+
+            function myContact() {
+                var directive = {
+                    restrict: "E",
+                    link: link,
+                    controller: MyContactController,
+                    controllerAs: "ctrl",
+                    template: "<span ng-dblclick=\"ctrl.edit(contact)\">{{ contact.name }}</span>",
+                    scope: {
+                        contact: "="
+                    }
+                };
+
+                function link(scope, element, attrs) {
+                }
+
+                function MyContactController() {
+                    var vm = this;
+
+                    vm.edit = edit;
+
+                    function edit(contact) {
+                        alert("Hi! We don't support editing.  You clicked on " + contact.name);
+                    }
+                }
+
+                return directive;
+            }
+        })();
+    </script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            angular
+                .module("app")
+                .controller("SampleController", SampleController);
+
+            function SampleController() {
+                var vm = this;
+
+                vm.contacts = [
+                    { name: "John" },
+                    { name: "Fred", age: 21 },
+                    { name: "Bill", age: 34 }
+                ];
+            }
+        })();
+    </script>
+</head>
+<body ng-app="app">
+    <div ng-controller="SampleController as ctrl">
+        <ul>
+            <li ng-repeat="c in ctrl.contacts">
+                <my-contact contact="c"></my-contact>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

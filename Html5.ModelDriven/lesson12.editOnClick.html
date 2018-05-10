@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lesson 12 - Edit On Click</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script>
+        (function () {
+            "use strict";
+
+            angular
+                .module("app", []);
+        })();
+    </script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            angular
+                .module("app")
+                .controller("EditOnClickSampleController", EditOnClickSampleController);
+
+            function EditOnClickSampleController() {
+                var vm = this;
+
+                init();
+
+                function init() {
+                    vm.age = 17;
+                    vm.name = "John";
+                }
+            }
+        })();
+    </script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            angular
+                .module("app")
+                .directive("csEditOnClick", editOnClick);
+
+            function editOnClick() {
+                var directive = {
+                    restrict: "A",
+                    link: link,
+                    require: "ngModel"
+                };
+
+                function link(scope, element, attrs, ngModelCtrl) {
+                    var elDisplay = $("<span>").insertAfter(element);
+
+                    // hide the input element and show the display element
+                    showDisplay();
+
+                    // if click, show the input element
+                    elDisplay.on("click", function (e) {
+                        elDisplay.hide();
+                        element.show();
+                    });
+
+                    // on enter, hide the input element
+                    element.on("keypress", function (e) {
+                        var ENTER_KEY_CODE = 13;
+                        if (e.which === ENTER_KEY_CODE) {
+                            showDisplay();
+                        }
+                    });
+
+                    function showDisplay() {
+                        element.hide();
+                        elDisplay.show().text(ngModelCtrl.$viewValue);
+                    }
+                }
+
+                return directive;
+            }
+        })();
+    </script>
+</head>
+<body ng-app="app">
+    <div ng-controller="EditOnClickSampleController as ctrl">
+        Age: <input cs-edit-on-click type="number" ng-model="ctrl.age" />
+        Name: <input cs-edit-on-click type="text" ng-model="ctrl.name" />
+    </div>
+</body>
+</html>
