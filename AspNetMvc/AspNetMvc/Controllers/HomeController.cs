@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AspNetMvc.Models;
 
 namespace AspNetMvc.Controllers
 {
@@ -35,6 +36,20 @@ namespace AspNetMvc.Controllers
         public ActionResult AboutYou()
         {
             return View();
+        }
+
+        //In a full-fledged app, this would be a generic view which could be used with any person;
+        //Data would come from the DB
+        public ActionResult AboutYyKosbie()
+        {
+            var yyKosbie = new PersonModel
+            {
+                Name = "YY Kosbie",
+                JobTitle = "Teacher",
+                YearsExperience = 13
+            };
+
+            return View(yyKosbie);
         }
     }
 }

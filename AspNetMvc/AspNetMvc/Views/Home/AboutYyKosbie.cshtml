@@ -1,0 +1,38 @@
+﻿@model AspNetMvc.Models.PersonModel
+
+@{
+    ViewBag.Title = "About " + Model.Name;
+}
+
+<h2>About</h2>
+
+<div>
+    <h4>Person Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Model.Name
+        </dd>
+
+        <dt>
+            Job Title
+        </dt>
+
+        <dd>
+            @Model.JobTitle
+        </dd>
+
+        <dt>
+            Years Experience
+        </dt>
+
+        <dd>
+            @Model.YearsExperience @if(Model.YearsExperience > 10) { @("(Expert)") }
+        </dd>
+
+    </dl>
+</div>
