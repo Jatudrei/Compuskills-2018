@@ -34,3 +34,7 @@ ipch/
 *.vssscc
 *.bak.*
 *.bak
+
+#Project files
+.vs/
+packages/
