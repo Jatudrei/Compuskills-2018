@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "About You";
+}
+
+<h2>About You</h2>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <h5 class="list-group-item-heading">Your IP Address</h5>
+        <span class="list-group-item-text">@Request.UserHostAddress</span>
+    </li>
+
+    <li class="list-group-item">
+        <h5 class="list-group-item-heading">Your Browser ("User Agent")</h5>
+        <span class="list-group-item-text">@Request.UserAgent</span>
+    </li>
+
+    <li class="list-group-item">
+        <h5 class="list-group-item-heading">Suggestion For Your Next Book Title</h5>
+        <span class="list-group-item-text">
+            @if((new Random()).Next(10) >= 5)
+            {
+                @:Go get the wind!
+            }
+            else
+            {
+                @:Mr. Trump Goes to Jerusalem
+            }
+        </span>
+    </li>
+</ul>

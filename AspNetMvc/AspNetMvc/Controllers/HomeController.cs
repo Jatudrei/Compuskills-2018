@@ -31,5 +31,10 @@ namespace AspNetMvc.Controllers
         {
             return View();
         }
+
+        public ActionResult AboutYou()
+        {
+            return View();
+        }
     }
 }
