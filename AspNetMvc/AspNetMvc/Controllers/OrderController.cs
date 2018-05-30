@@ -14,6 +14,11 @@ namespace AspNetMvc.Controllers
             return View(order);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Edit(int id)
         {

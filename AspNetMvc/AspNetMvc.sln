@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetMvc", "AspNetMvc\AspNetMvc.csproj", "{805B261C-604F-4640-9F99-9DD837C5EEBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetMvc.DataAccess", "AspNetMvc.DataAccess\AspNetMvc.DataAccess.csproj", "{4EEB7D70-BCE3-45CF-885D-7CF24A854618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetMvc.DataAccess", "AspNetMvc.DataAccess\AspNetMvc.DataAccess.csproj", "{B04B2904-BF4F-4AD2-968E-885BD5042D7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{805B261C-604F-4640-9F99-9DD837C5EEBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{805B261C-604F-4640-9F99-9DD837C5EEBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{805B261C-604F-4640-9F99-9DD837C5EEBF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4EEB7D70-BCE3-45CF-885D-7CF24A854618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4EEB7D70-BCE3-45CF-885D-7CF24A854618}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4EEB7D70-BCE3-45CF-885D-7CF24A854618}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4EEB7D70-BCE3-45CF-885D-7CF24A854618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B04B2904-BF4F-4AD2-968E-885BD5042D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B04B2904-BF4F-4AD2-968E-885BD5042D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B04B2904-BF4F-4AD2-968E-885BD5042D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B04B2904-BF4F-4AD2-968E-885BD5042D7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
