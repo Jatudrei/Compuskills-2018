@@ -9,9 +9,13 @@ namespace AspNetMvc.Controllers
 {
     public class HomeController : Controller
     {
+        public static int NumberOfTimesAccessed { get; set; } = 0;
+
         public ActionResult Index()
         {
-            return View();
+            NumberOfTimesAccessed++;
+
+            return View(NumberOfTimesAccessed);
         }
 
         public ActionResult About()
@@ -28,6 +32,7 @@ namespace AspNetMvc.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult HelloWorld()
         {
             return View();
@@ -50,6 +55,30 @@ namespace AspNetMvc.Controllers
             };
 
             return View(yyKosbie);
+        }
+
+        public ActionResult AboutYehoshuaKahan()
+        {
+            var yehoshua = new PersonModel
+            {
+                Name = "Yehoshua Kahan",
+                JobTitle = "Student",
+                YearsExperience = 1
+            };
+
+            return View("AboutYyKosbie", yehoshua);
+        }
+
+        [HttpPost]
+        public ActionResult UrlParamDemo(int id, int? age, string name)
+        {
+            return Json(new { Id = id, Age = age, Name = name }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult UrlParamDemo(int id)
+        {
+            return Json(new { Id = id }, JsonRequestBehavior.AllowGet);
         }
     }
 }
