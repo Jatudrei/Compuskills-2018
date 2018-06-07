@@ -17,7 +17,7 @@ namespace Lab1.Mvc.Services
                    {
                        BookID = book.BookID,
                        Publisher = book.Publisher,
-                       Title = book.Title,
+                       Title = book.Title,                       
                        AdvisoryID = book.AdvisoryID.HasValue ? book.AdvisoryID.Value : 0,
                        AdvisoryText = (book.Advisory != null) ? book.Advisory.AdvisoryText : ""
                    };

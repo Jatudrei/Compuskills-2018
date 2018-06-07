@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Hints";
+}
+
+<h2>Hints</h2>
+
+<button class="btn btn-primary" id="btnShowHint">Show Another Hint...</button>
+<ol id="olHints">
+    <li>The client asked for the "Advisory" a few weeks ago.</li>
+    <li>The error message says invalid FK - Check the DB to see what the foreign key rules are.  It might be accidentally configured as a non nullable.</li>
+    <li>Check the Domain model and EF config to make sure neither of them makes the property non nullable.</li>
+    <li>Use Postman to use simulate a "valid" edit and make sure it works.</li>
+    <li>Set a breakpoint to see what the server is actually receiving.</li>
+    <li>Try using Chrome to examine what's actually being sent to the server.</li>
+    <li>Check what the browser said the ID was initially.</li>
+    <li>Check the DB - what's the current value?</li>
+    <li>Look at the GET action for /Book/Edit - what's the server returning?  Does it match what the client's receiving?  Does it match the DB?</li>
+</ol>
+
+@section scripts {
+    <script>
+        $(function () {
+            var cntHintsShown = 0;
+            var cntHints = $("#olHints li").length;
+
+            $("#olHints li").hide();
+            $("#btnShowHint").click(function (e) {
+                $("#olHints li:nth(" + cntHintsShown++ + ")").show();
+
+                if (cntHints === cntHintsShown) $("#btnShowHint").prop("disabled", true);
+            });
+        });
+    </script>
+}

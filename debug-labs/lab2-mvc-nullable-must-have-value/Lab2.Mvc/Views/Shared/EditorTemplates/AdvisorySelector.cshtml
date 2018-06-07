@@ -10,14 +10,12 @@
                     .attr("value", item.AdvisoryID)
                     .text(item.AdvisoryText);
 
-                @if (Model != null) {
-                    @:if (item.AdvisoryID === @Model) option.attr("selected", "selected");
-                }
+                if (item.AdvisoryID === @Model) option.attr("selected", "selected");
 
                 $("#@Html.IdFor(x => x)")
                     .append(option);
-                })
+            })
         });
 </script>
 
-@Html.DropDownListFor(x => x, new SelectListItem[] { new SelectListItem() { Text = "Select Advisory...", Value = "" } }, new { @class = "form-control" })
+@Html.DropDownListFor(x => x, new SelectListItem[] { new SelectListItem() { Text = "Select Advisory...", Value = "0" } }, new { @class = "form-control" })
