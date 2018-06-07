@@ -1,21 +1,31 @@
 ﻿
 @{
-    ViewBag.Title = "Hints";
+    ViewBag.Title = "Guided Demo - Debugging the \"Random\" Won't Save";
 }
 
-<h2>Hints</h2>
+<h2>Guided Demo - Debugging the "Random" Won't Save</h2>
 
-<button class="btn btn-primary" id="btnShowHint">Show Another Hint...</button>
+<button class="btn btn-primary" id="btnShowHint">Show Next Step</button>
 <ol id="olHints">
-    <li>The client asked for the "Advisory" a few weeks ago.</li>
-    <li>The error message says invalid FK - Check the DB to see what the foreign key rules are.  It might be accidentally configured as a non nullable.</li>
-    <li>Check the Domain model and EF config to make sure neither of them makes the property non nullable.</li>
-    <li>Use Postman to use simulate a "valid" edit and make sure it works.</li>
-    <li>Set a breakpoint to see what the server is actually receiving.</li>
-    <li>Try using Chrome to examine what's actually being sent to the server.</li>
-    <li>Check what the browser said the ID was initially.</li>
-    <li>Check the DB - what's the current value?</li>
-    <li>Look at the GET action for /Book/Edit - what's the server returning?  Does it match what the client's receiving?  Does it match the DB?</li>
+    <li>Identify Bug - Consider what's <em>different</em> between the books.</li>
+    <li>Simulate input with <a href="http://getpostman.com">Postman</a> to see if "no advisory" causes an error</li>
+    <li>Use a Visual Studio breakpoint to check what value bound to the Advisory ID when you edit</li>
+    <li>Check in Chrome what's actually being sent (use Network tab and Preserve Log)</li>
+    <li>Now we know a "0" is being sent to the server from the form - where did it come from</li>
+    <li>Use Chrome "Inspector" to check the form as generated</li>
+    <li>CONSIDER: Why did the initial developer put a 0 in the code?  What was his goal?</li>
+    <li>Remove the 0 from corresponding view</li>
+    <li>
+        Why did the field suddenly say it's required? Why should a value suddenly be required?
+        <ul>
+            <li>Rubber Duck Debugging - Describe this strange behavior to your duck</li>
+            <li>AFK Time</li>
+            <li>Dr. Google - When is a field "required" in MVC?</li>
+            <li>StackOverflow</li>
+        </ul>
+    </li>
+    <li>Solution 1: Use nullable int in the view model</li>
+    <li>Solution 2: Change the value to null befores submitting to DB</li>
 </ol>
 
 @section scripts {
