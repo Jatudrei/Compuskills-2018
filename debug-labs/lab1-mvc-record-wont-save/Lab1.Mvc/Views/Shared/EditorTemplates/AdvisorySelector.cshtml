@@ -10,9 +10,7 @@
                     .attr("value", item.AdvisoryID)
                     .text(item.AdvisoryText);
 
-                @if (Model != null) {
-                    @:if (item.AdvisoryID === @Model) option.attr("selected", "selected");
-                }
+                if (item.AdvisoryID === @Model) option.attr("selected", "selected");
 
                 $("#@Html.IdFor(x => x)")
                     .append(option);
