@@ -7,7 +7,7 @@ namespace Lab1.Mvc.Models
         public int BookID { get; set; }
 
         [Display(Name = "Advisory (optional)"), UIHint("AdvisorySelector")]
-        public int AdvisoryID { get; set; }
+        public int? AdvisoryID { get; set; }
         [Display(Name = "Advisory Text")]
         public string AdvisoryText { get; set; }
 
