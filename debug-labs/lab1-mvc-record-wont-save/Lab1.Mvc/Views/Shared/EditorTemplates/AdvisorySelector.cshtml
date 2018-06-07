@@ -1,0 +1,21 @@
+﻿<script>
+    $.ajax({
+        url: "@Url.Action("GetAdvisories", "Advisory")",
+        method: "GET",
+        dataType: "json"
+    })
+        .then(function (data) {
+            $.each(data, function (ix, item) {
+                var option = $("<option>")
+                    .attr("value", item.AdvisoryID)
+                    .text(item.AdvisoryText);
+
+                if (item.AdvisoryID === @Model) option.attr("selected", "selected");
+
+                $("#@Html.IdFor(x => x)")
+                    .append(option);
+            })
+        });
+</script>
+
+@Html.DropDownListFor(x => x, new SelectListItem[] { new SelectListItem() { Text = "Select Advisory...", Value = "0" } }, new { @class = "form-control" })
