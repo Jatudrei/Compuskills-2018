@@ -1,0 +1,8 @@
+﻿@model IEnumerable<AspNetMvc.Models.OrderDetailModel>
+
+<ul>
+    @foreach(var detail in Model)
+    {
+        <li>@detail.ProductName, Quantity: @detail.Quantity</li>
+    }
+</ul>

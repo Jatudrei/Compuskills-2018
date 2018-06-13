@@ -1,9 +1,10 @@
 ﻿using AspNetMvc.DataAccess.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace AspNetMvc.DataAccess.DataSource
 {
-    public class NorthwindContext : DbContext
+    public class NorthwindContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<CustomerCustomerDemo> CustomerCustomerDemos { get; set; }
