@@ -24,14 +24,35 @@
   1. Encapsulate what changes / what you expect to change
   2. Encapsulate entire behaviors - eg WriteLine, ImportDocument
   3. Encapsulate knowledge
+  4. Encapsulate responsibilities
+- C# Access Modifiers
+  - C# allows us to formalize the process of encapsulation / interfaces with access modifiers
+  - private - 
+  - internal / protected _break encapsulation_; be careful;
+  - Effectively you have 5 different interfaces to your class
 - Sidebar - Patterns and Principles
   - Represent the collective experience of programmers for the last 50 years
   - There is probably a pattern for anything you need to do
   - You can question the principles / patterns if you have good basis
   - REMEMBER - you're arguing with 100's of other programmers when you reject a pattern or principle!
-- General Guiding Principle #3 - Don't Reinvent the Wheel
+- General Guiding Principal #3 - Don't Expose Yourself
+  - You should always assume data and methods are private unless you have a reason to make them public
+  - You don't want a "big ball of mud" or "spaghetti code";
+- General Guiding Principle #4 - Don't Reinvent the Wheel
   - Map you're requirements to an existing pattern or principle
   - The last dev who invented the wheel probably ran into a lot of problems along the way; the "final product" represents his solution accounting for everything
+- Cohesion
+  - How closely related are the methods in a class
+  - Low cohesion indicates you have bad encapsulation within the class
 - Class Interaction
   - Your classes can and should interact with each other
-- General Guiding Principle #4 - 
+  - Composition - Use code that was decomposed into separate classes together; NOT inheritance;
+  - Don't fall into the inheritance trap!
+  - Define the public interface; consume it;
+- Coupling
+- General Guiding Principle #5 - KISS
+- General Guiding Principle #6 - DRY
+- General Guiding Principle #7 - YAGNI
+- Sidebar - Expedience
+  - There are always tradeoffs; time; money;
+  - Technical debt
