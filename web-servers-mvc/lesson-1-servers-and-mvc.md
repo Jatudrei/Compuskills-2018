@@ -21,7 +21,7 @@
   - The client makes a **request** to the server for your web app; the server finds the appropriate file and sends it back in a **response** to the client
 
   - Pay attention to all the words in bold - they come up a lot in MVC
-[Client Server Example](client-server-simple.png)
+![Client Server Example](client-server-simple.png)
 
 - In Class Demo - Using Postman
   - Download Postman from https://www.getpostman.com/
