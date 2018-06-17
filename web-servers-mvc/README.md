@@ -1,6 +1,6 @@
 **ASP.NET**
 =============================
-We already learned to use C# in [Programming Fundamentals](../programming-fundamentals) and [Databases](databases).  We separately learned to design great user interfaces in [HTML 5 Web Apps](html-5-web-apps).  ASP.NET is the "glue" that holds the two together.  We'll learn how to create a server - a special program which runs our C# code in response to actions in a web app.
+We already learned to use C# in [Programming Fundamentals](../programming-fundamentals) and [Databases](../databases).  We separately learned to design great user interfaces in [HTML 5 Web Apps](../html-5-web-apps).  ASP.NET is the "glue" that holds the two together.  We'll learn how to create a server - a special program which runs our C# code in response to actions in a web app.
 
 **Units in this Course**
 ===========
