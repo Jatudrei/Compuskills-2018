@@ -1,0 +1,95 @@
+**Learning Objectives**
+=======================
+- Review the basics of encapsulation and programming to an interface
+- Learn to communicate _between_ components without breaking encapsulation
+- Learn to analyze an OO design for effective encapsulation
+
+**Outline**
+===========
+- Review - General Guiding Principles #1 and #2
+  - Encapsulation - Close off, or "encapsulate" behavior / knowledge to only one part of your program
+    - Using encapsulation makes it easier to make changes in the future
+    - You encapsulate _knowledge_; knowledge means HOW a behavior is implemented, not WHAT the behavior is
+    - Knowledge is _exposed_ when it's part of the public interface
+  - Program to an Interface / Contract
+    - Define a conceptual boundary between knowledge: encapsulated and not; the interface is the WHAT; it's the only thing the consumer knows about;
+    - C# interfaces are a tool to _enforce_ the interface pattern in your code; they are far from perfect!
+    - The responsibility for programming to an interface is ultimately on the programmer
+- Providers and Consumers
+  - You should consider your program to be a collection of _providers_ and _consumers_
+  - A provider _provides_ (ie does the work) behaviors / functions; that's the WHAT
+  - A consumer _consumes_ (ie uses) those behaviors
+  - The consumer should never "know" HOW the provider works internally
+- Ways to consider encapsulation
+  - These all are tools to accomplish the same goal
+  1. Encapsulate what changes / what you expect to change
+  2. Encapsulate entire behaviors - eg WriteLine, ImportDocument
+  3. Encapsulate knowledge
+  4. Encapsulate responsibilities
+- C# Access Modifiers
+  - C# allows us to formalize the process of encapsulation / interfaces with access modifiers
+  - The modifiers are a tool to support design decisions _you already made_; don't write expect modifiers to design the class for you
+  - Basic two modifiers
+    - private - full encapsulation; no other class can access the method or field;
+    - public - no encapsulation; this is part of the "public interface" to your class;
+  - "Special" modifiers which **break encapsulation**
+    - Be very careful when you use these modifiers; the break encapsulation and might lead to bad architecture and/or bugs
+    - These are all variations on private; ie encapsulated data with some exceptions
+    - internal - other "code that I write" can access this; 
+    - protected - code which expands my capabilities can access this;
+    - protected internal - either "code that I write" or code which expands my capabilities can access this;
+  - Effectively you have 3 different interfaces to your class (public, internal, and protected)
+  - As soon as knowledge is exposed on one of the 3 interfaces you need to be careful about changing it!
+  - NOTE: There's an advanced tool called "Reflection" which allows a programmer to break _all_ the rules of access modifier rules;
+- C# Properties
+  - At first glance properties seem to be the same thing as fields
+  - The difference is _encapsulation_; a getter / setter encapsulate the process of looking up or storing data in your class;
+  - For "basic" properties it's the same as a field
+  - Some properties might require complex calculations; you encapsulate the calculations in a getter
+- Sidebar - Patterns and Principles
+  - Represent the collective experience of programmers for the last 50 years
+  - There is probably a pattern for anything you need to do
+  - You can question the principles / patterns if you have good basis
+  - You don't want a "big ball of mud" or "spaghetti code";
+  - REMEMBER - you're arguing with 100's of other programmers when you reject a pattern or principle!
+- General Guiding Principal #3 - Don't Expose Yourself
+  - You should always assume data and methods are private unless you have a reason to make them public
+  - In C# any class or property you don't set a modifier on is "internal"; I reccomend explicitly making it private;
+- General Guiding Principle #4 - Don't Reinvent the Wheel
+  - Map you're requirements to an existing pattern or principle
+  - The last dev who invented the wheel probably ran into a lot of problems along the way; the "final product" represents his solution accounting for everything
+- Cohesion
+  - How closely related are the methods in a class
+  - Low cohesion indicates you have bad encapsulation within the class
+  - Classes should be cohesive in terms of _the way they change_
+  - In other words, every method in the class should change for the same reason
+  - Ex: An MVC controller class should only change b/c you changed the HTTP interface; it _should not_ change b/c you changed the DB or services;
+  - We'll discuss cohesion more when we discuss SRP and OCP
+- Class Interaction and Coupling
+  - Your classes can and should interact with each other
+  - Composition - Use code that was decomposed into separate classes together; NOT inheritance;
+  - Don't fall into the inheritance trap!
+  - Define the public interface; consume it;
+- Coupling
+  - When two independent components of a tech system interact, we say they are "coupled";
+  - Ex: an app on a smart phone is coupled with the web server it gets data from
+  - Tight coupling means _you cannot change one without changing the other_; this is bad;
+  - Loose copuling means you can change each independently;
+  - Tight coupling usually indicates you exposed knowledge between the classes; ie you broke encapsulation!
+- Several of the "rules" you've learned until now are actually _simanim_ of good encapsulation
+  - General Guiding Principle #5 - KISS - Good encapsulation makes a system overall easier to understand and conceptualize
+  - General Guiding Principle #6 - DRY - Repeated code is probably a _behavior_ you need to encapsulate
+  - General Guiding Principle #7 - YAGNI - Speculative anticipation is hard to encapsulate
+- Analyze your design
+  - After you finish a design, analyze it for our guiding principles
+  - Is it DRY?
+  - Are the classes highly cohesive?
+  - Are the interactions loosely coupled?
+  - Have you exposed yourself anywhere inappropriate?
+- Sidebar - Technical Debt / Expedience
+  - Good design takes more time up front but less time long term
+  - When you have deadlines and angry clients, it's easy to make an expedient choice to break the rules of software design;
+  - That creates "technical debt"; in other words, you're taking a loan of time to complete a long task faster
+  - You will _always_ need to pay off technical debt eventually;
+  - AND it always comes with huge amounts of ribis!  The more entrenched your quick fix gets the longer it will take to fix it properly.
+- In Class Demo - Decomposition w/ our guiding priciples
