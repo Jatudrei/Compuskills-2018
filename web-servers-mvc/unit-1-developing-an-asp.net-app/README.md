@@ -13,7 +13,7 @@ That's where ASP.NET comes in.  ASP.NET is a special server framework that lets 
 **Lessons**
 ===========
 1. [Lesson 1 - Servers and MVC](lesson-1-servers-and-mvc.md)
-2. [Lesson 2 - Handling Client Requests](lesson-2-servers-and-mvc.md)
-3. [Lesson 3 - RAD, Templates, and View Helpers](lesson-3-servers-and-mvc.md)
-4. [Lesson 4 - Partial Views and AJAX Updates](lesson-4-servers-and-mvc.md)
-5. [Lesson 5 - Authentication and Security](lesson-5-servers-and-mvc.md)
+2. [Lesson 2 - Handling Client Requests](lesson-2-handling-client-requests.md)
+3. [Lesson 3 - RAD, Templates, and View Helpers](lesson-3-rad-templates-and-view-helpers.md)
+4. [Lesson 4 - Partial Views and AJAX Updates](lesson-4-partial-views-and-ajax.md)
+5. [Lesson 5 - Authentication and Security](lesson-5-authentication-and-security.md)
