@@ -15,7 +15,7 @@
   - Cache / Redis - Targeted cache for storing "final" versions of dynamic pages; avoids having to recreate dynamic content more often than it changes;
   - Internet Connection / Firewall - How _other people_ get access to your host; backwards from how you traditionally think about internet;
   - Domain Name / DNS - Your "website address", eg www.compuskills.org; How the address gets connected to the right host;
-  - Static IP Address - A permanent "fixed address"; we'll discuss later in the lesson;
+  - Static IP Address - A permanent "fixed address"; we'll discuss in next lesson;
   - SSL - Creates an encrypted connection between the host and clients
 
 - Server jobs and MVC jobs
@@ -60,12 +60,36 @@
   - https://weblog.west-wind.com/posts/2012/Oct/25/Caveats-with-the-runAllManagedModulesForAllRequests-in-IIS-78
 
 - Deploy Files
-  - Your MVC App - The compiled code and view files for your app; you configure the server to host this app;
-  - Your HTML UI - Any static HTML / CSS / JS resource files you have; this may or may not be part of your app;
-  - bin (binaries)
-  - support binaries
-  - views
-  - static
+  - Compiled Assemblies
+    - Contains all your C# code for action methods, routing, config, etc.  _does not include_ C# Razor files;
+    - bin = "binaries"; ie files which can be executed by a computer;
+    - obj; partially compiled program files;
+  - pdb and xml
+    - All your projects generate 3 files: ProjectName.dll, ProjectName.xml, and ProjectName.pdb
+    - The .dll is the actual code; you _could_ deploy just this if you want
+    - The .pdb has debugging "symbols" to let a debugger attach to the code; don't normally need to deploy
+    - The .xml has deploy info; it's generally not needed
+  - Web.config and Global.asax - how the server should run your app; you must deploy this file;
+  - MVC views - Razor view files (.cshtml) are _not_ pre compiled like the rest of your code; you must deploy the actualy .cshtml files;
+  - Static files- Any static HTML / CSS / JS resource files you have; this may or may not be part of your app;
+  - App auto "refereshes" when you update a global config file or a binary;
+
+- 3rd Party Assemblies
+  - GAC - Where "global" assemblies are stored; not every computer has the same GAC assemblies;
+  - bin deploy - You can include _any_ assembly in the bin; this supersedes the GAC;
+  - Nuget - Servers can be set to automatically install all packages from your nuget packages.config file
+  - Multiple versions - assembly redirects
+    - A reference to an assembly _includes_ the version number of the assembly
+    - Providing an assembly with the wrong version number will cause a binding failure
+    - Binding redirect - use code written for different versions of an assembly together in one project
+  - Strong names
+    - Fully qualified name - Assembly name
+    - Public Key Token
+    - Version Number
+
+- In Class Demo
+  - Binding redirect
+  - Setting assembly for bin deploy
 
 - Deployment Types
   - 1 Click via IIS integration
@@ -73,24 +97,4 @@
   - Local Network
   - Manual
 
-- Domain Names
-  - host header
-  - Ports - 80, 8080, 443
-  - Registrar and IANA
-  - What's an IP address?  What's a domain name?  What's "static" vs "dynamic"?
-
 - In Class Demo - 1 Click Deploy to "Local IIS"
-
-- XML transforms
-
-- Hosting Options
-  - "Rent" Space Per App
-    - Shared Host
-    - "Cloud" Hosting
-  - "Rent" A Host
-    - VPS
-    - Managed VPS
-    - Managed Private Server
-  - Run Your Own Host
-    - Rackspace Rental
-    - In Office
