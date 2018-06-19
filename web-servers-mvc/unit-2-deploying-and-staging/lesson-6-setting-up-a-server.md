@@ -1,7 +1,7 @@
 **Learning Objectives**
 =======================
 - Understand the components of a "live" web app
-- Explore the main options available for hosting: self hosting (IIS and Katana), shared hosting, VPS, and dedicated managed server
+- Learn the common tools you'll use to configure your running web app
 - Learn the options available to publish and update your app
 
 **Outline**
