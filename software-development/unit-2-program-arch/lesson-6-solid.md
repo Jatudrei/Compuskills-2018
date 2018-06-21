@@ -5,7 +5,7 @@
 
 **Outline**
 ===========
-- What is SOLID
+- General Guiding Principle #8 - SOLID
   - Generally accepted as the "most important" 5 principles of class design
   - Developed by Robert Martin ("Uncle Bob")
   - You should consider SOLID while you _develop_ your classes and when you _analyze_ your design
