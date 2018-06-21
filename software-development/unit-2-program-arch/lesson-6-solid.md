@@ -74,15 +74,84 @@
   - If the requirements change - eg now you need to use a CAPTCHA before allowing registration - you need to rewrite the validateForm() method!
   - OCP says you should have designed the method initially to make adding validation steps (_extending_) possible without rewriting the code
 - Practical OCP implementation
-  - You'll generally use interfaces and arrays to implement OCP
+  - You'll generally use interfaces and collections to implement OCP
+  - Store a list of actions in your class; allow the consumer to add any extra action;
+  - Use an interface so that each action has a guaranteed behavior; rely on that behavior from your main code;
 - In Class OCP Demos
   - Middleware in OWIN pipeline
   - Credit card transaction validation
 - **L** - LSP - Liskov Substitution Principle
   - "Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program" - Uncle Bob
   - Remember princple #4 - program to interfaces / contract, not implementations
-  - LSP helps guarantee you don't break the contract in a subclass
+  - LSP helps guarantee you don't break the contract with the way you write a subclass
+  - To satisfy it's contract, a subclass must _behave_ exactly the same way as the base class would have
+  - This enables a consumer to use either the base class or a subclass with no noticeable effect on the results
+- "Classic" Contrived Example - Rectangle and Square
+  - "Every square is a rectangle but not every rectangle is a square..."
+  - You might try to implement this in code with inheritance...
+
+    // Given a Square class...
+    public class Square : Rectangle
+
+    // Consider
+    Rectangle r = new Square();
+    r.Width = 20;
+    r.Height = 10;
+
+    r.CalculateArea(); // what should this be? 200?
+
+  - Problem: The square has a _different_ behavior than it's parent; when you change any side of a square _the other sides also change_ that breaks LSP;
+- Inherit based on _behavior_ not _properties_
+  - This reinforces the general guiding principles we've already covered
+  - Class design should always be based on _behavior_!
+  - A class can inherit from another class if it _behaves_ the same way (and _extends_ that behavior)
+  - **NOTE**: Unfortunately the vast majority of introductory material on OO design uses "real world analogies" to define the principles; that requires designing based on properties; 
+  - (even the LSP example of Rectangle / Square broke this rule)
+- Rule of Thumb - If you need to perform a type check before calling a method, there's a good chance you broke LSP
+  - var column = getDbColumn(name);
+  - if(!(column instanceof HiddenColumn)) column.Render();
+  - ISP can often help avoid LSP problems
+- In Class LSP Demos
+  - IPersistedResource ([original article](https://lassala.net/2010/11/04/a-good-example-of-liskov-substitution-principle/))
+- When to use a nop
+  - nop = No Operation
+  - You might want to just override a method with code to do nothing (a nop) and "avoid" LSP problems
+  - That can lead to subtle bugs; consider the IPersistedResource example; if my UI exposes a "Save" buton which calls the Persist method _and_ that method is a nop, the user will get inconsistent behavior
+    - When they load a read/write resource everything works fine
+    - When they load a read only resource it does not save _AND_ it does not tell them it failed!
+    - The NotImplementedException is important in this case - it forces the consumer to realize there's a problem; you can't persist a read only resource;
+  - However - nop is still a great concept; use it when the method is _optional_
+  - Optional normally means we only care about the _result_ of the action, not the action itself
+  - Example "optional" methods - notice the names
+    - Cleanup() - if there's nothing to clean in this subclass, a nop is fine;
+    - OnUpdateFinished()
+    - EnsureConnected() - for an OfflineDataStore; it's "always connected"
 - **I** - ISP - Interface Segragation Principle
   - "Many client-specific interfaces are better than one general-purpose interface" - Uncle Bob
+  - Even when you use a single _concrete_ class to define many behaviors, separate the behaviors themselves into independent interfaces
+  - Example - A C# Dictionary is an IDictionary, IList, ICollection, IEnumerable, etc
+  - By keeping interfaces independent you enable _consumer code_ to focus on one aspect it cares about
+  - A foreach loop can work with any IEnumerable _even if_ the IEnumerable has a lot more features
+  - This also prevents you from needing to _rewrite_ all the consumers when an unrelated part of the _concrete class_ changees; the consumers each only work with _their interface_
+- OCP, LSP, and ISP work together
+  - You'll often find violations of any one of these 3 cause violations of the other(s)
+  - Consider the IPersistedResource example
+    - The type check violates OCP; we need to _rewrite_ the SaveAll method every time we add a new read only persisted resource
+    - The new resource itself violates LSP; it doesn't have the same behavior as it's parent
+    - The interface we designed violates IPS; we've forced consumers to always work with read/write resources even if some resources can be read-only
+  - Fix any one of the 3 and you're likely to fix the other(s)
+- In Class Demos
+  - FixedSizeArray
 - **D** - DIP - Dependency Inversion Principle
   - "One should 'depend upon abstractions, [not] concretions'" - Uncle Bob
+  - A dependency is another piece of code that you _interact_ with
+  - General idea - don't create / get your dependencies from _inside_ the class; pass them in from _outside_
+  - Example - your DbContext class is a dependency for most of your controllers
+  - If you create the dependency directly in the controller with using(var ctx = new DbContext...) you've broken DIP
+- Why invert
+  - It's all about planning for change; your class should be programmed to the _interface_ your dependencies define, not the _concrete implementation_
+  - If we eventually swap out the implementation - your code should be unaffected
+  - If you deal with the dependency from inside your class, you have to _rewrite it_ every time the dependency changes
+- In Class Demos
+  - IDateProvider - InjectedDateProvider, SystemClockDateProvider
+  - IIdentity - SelectableIdentity, ClaimsIdentity

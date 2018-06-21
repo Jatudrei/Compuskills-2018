@@ -53,7 +53,7 @@
   - In a UI, affordances might be double clicking for more information, mousing over, or right clicking
 - Signifiers
   - Artificially "highlight" an affordance to a user
-  - Example: glass doors have a handle to signify where you should push
+  - Example: glass doors have a metal panel to signify "push"
   - If you have too many, it just becomes noise
   - One option: use "just in time" signifiers which show up just as the user might want to use them
 - "False" Signifiers
@@ -61,7 +61,8 @@
   - Toshiba laptop example
     - Text "Toshiba" is positioned in bottom corner
     - Gray strip looks like part of a hinge
-  - Norman Doors - whole collection of doors that are hard to open; literally; in the his book, he actually has a story of someone getting trapped in an antechamber because he couldn't figure out how to open either door;
+  - Norman Doors - whole collection of doors that are hard to open; literally; in the his book, he actually has a story of someone getting trapped in an antechamber because he couldn't figure out how to open either door; (the doors had square metal panels in all four corners so you couldn't identify the hinge side);
+  - Light switches wired backwards - so the "on" signifier really means off
 - Discoverability
   - Can a user identify what actions are possible; ie - can a user "see" the affordances
   - Two types of actions - this is relevant in all products; particularly in software
