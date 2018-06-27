@@ -107,8 +107,8 @@
   - Google requirement - built in to Chrome which means most people expect it's required; you will lose customers if Chrome gives warnings
 
 - Sidebar - The "insecure connection" page
-  - ![https://prod-cdn.sumo.mozilla.net/uploads/images/2016-02-05-14-08-50-9f62b4.png](Firefox)
-  - ![https://www.technipages.com/wp-content/uploads/2015/04/Chrome-Advanced.png](Chrome)
+  - ![Firefox](https://prod-cdn.sumo.mozilla.net/uploads/images/2016-02-05-14-08-50-9f62b4.png)
+  - ![Chrome](https://www.technipages.com/wp-content/uploads/2015/04/Chrome-Advanced.png)
   - Do not train users to ignore it!
 
 - Let'sEncrypt
