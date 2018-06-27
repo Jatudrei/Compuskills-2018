@@ -2,7 +2,6 @@
 =======================
 - Learn to manage hosts - DNS, FTP, hosting
 - Understand the security implications of shared / VPS hosting
-- 
 
 **Outline**
 ===========
