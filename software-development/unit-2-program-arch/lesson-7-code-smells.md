@@ -1,0 +1,76 @@
+**Learning Objectives**
+=======================
+- Learn to spot common code smells as a tool to improve your software design
+
+**Outline**
+===========
+- What is a code smell
+  - When food has a strange smell, it's a warning something might be wrong
+  - The same is true in code; if it has a strange smell, something might be wrong
+  - These are only _smells_; they're not a guarantee that the code is wrong, just something to consider
+- Fixing Smells - Refactor
+  - A code smell doesn't tell you the code doesn't _work_
+  - It tells you the code is _hard to maintain_
+  - Eliminate the smell by _refactoring_ - ie rewriting your existing code to be more maintainable
+  - Refactoring _does not change the behavior_ of your code at all
+- Sidebar - Safe Refactoring
+  - Careful w/ refactoring - you can accidentally introduce regression bugs
+  - You can ensure you don't break your code's behavior with unit testing; (covered in a later lesson)
+  - In general - refactoring should not change the _public interface_
+- Smells like your code is unclear
+  - Chatty (Long Comments or Lots of Comments)
+    - Comments are not a replacement for badly designed code
+    - Comments have no language level connection to the code they describe; it's common for them to get out of date or out of sync!
+    - Let the code itself "tell a story" so you don't need comments (use effective variable names, variable types, and utility methods)
+  - Long Method
+    - Often a sign you've reverted to structural code
+    - An algorithm is _hard to understand_ when it's all stacked up in one long method; there's no description
+    - Often found together with comments that represent where methods belong
+    - General guideline - more than 50 lines
+  - Unsafe Conditions (too much complexity if / while conditions)
+    - Hard to read; hard to update; _very easy_ to mess up the order of ops rules and get the wrong result;
+    - In other words - unsafe
+    - You can use Strategy, Decorator, or State
+- Smells like your code is unstructured
+  - Bad Shalom Bayis (Too Many Arguments)
+    - Interfaces with many arguments are hard to understand
+    - Often a sign of bad overall design; the method might be in the wrong class or you might need a DTO;
+  - WET Code - (Write Everything Twice - Duplicated methods)
+    - There are _legitimate business reasons_ to have code which is functionally the same in two places
+    - Remember SRP - all code is _responsible_ to one actor
+    - These are the exception; in most cases the same code _means_ the same responsibility
+  - MOIST Code (Not actually an acronym - _very similar_ code that has SRP reasons to be separate)
+    - Composition
+    - Generics
+    - Interpreter
+  - Overcrowding (Large Class)
+    - Most _responsibilities_ can be implemented using a small number of methods
+    - If you're overcrowded you might have multiple responsibilities - SRP
+    - Also consider ISP - possibly mitigated w/ C# interfaces
+  - Primitive Obsession
+    - Many primitives in the same code
+    - _Reused_ in same block of code over and over
+    - Probably should be _encapsulated_ into a class
+- Smells like you "mis"-encapsulated
+  - Indecent Exposure
+    - Too many / mostly public methods and properties
+    - Sign you didn't distinguish between the interface and implementation
+  - Feature Envy
+    - A method _envies_ another class if it's using all of it's methods
+    - Might belong in the class it envies
+- Smells like your code is misleading
+  - You Gave ______ A Bad Name
+    - Using a data type in your names (e.g. AuthorNameString)
+    - Not expressing what a method / variable does with the name
+    - Using inconsistent terms - like a connection with Open() and Disconnect() methods
+
+    - Remember: The compiler "shortens" names internally - so make them understandable!
+    - Good names tell a story; they replace "chatty" code
+  - Dead Code
+    - Code that is not used anywhere
+    - JUST DELETE IT - that's what source control is for
+- Further Resources
+  - [Clean Code by Uncle Bob](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+  - [Jeff Atwood Summary](https://blog.codinghorror.com/code-smells/)
+  - [Refactoring: Improving the Design of Existing Code by Martin Fowler](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672)
+  - [How To Write Unmaintainable Code](https://github.com/Droogans/unmaintainable-code) (Satire)
