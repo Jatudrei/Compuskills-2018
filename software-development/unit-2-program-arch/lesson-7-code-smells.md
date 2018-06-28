@@ -21,7 +21,10 @@
   - Chatty (Long Comments or Lots of Comments)
     - Comments are not a replacement for badly designed code
     - Comments have no language level connection to the code they describe; it's common for them to get out of date or out of sync!
+    - This does _not_ contradict the "comment everywhere" advice; it just uses the code itself to convey the information
     - Let the code itself "tell a story" so you don't need comments (use effective variable names, variable types, and utility methods)
+    - Other people _will_ read your code; don't let it tell a bad story about you;
+    - Famous: [Windwos 2000 Source Code](http://atdt.freeshell.org/k5/story_2004_2_15_71552_7795.html) was leaked and was full of bad comments
   - Long Method
     - Often a sign you've reverted to structural code
     - An algorithm is _hard to understand_ when it's all stacked up in one long method; there's no description
@@ -31,6 +34,15 @@
     - Hard to read; hard to update; _very easy_ to mess up the order of ops rules and get the wrong result;
     - In other words - unsafe
     - You can use Strategy, Decorator, or State
+  - You Give Code... A Bad Name
+    - Using a data type in your names (e.g. AuthorNameString)
+    - Not expressing what a method / variable does with the name
+    - Using inconsistent terms - like a connection with Open() and Disconnect() methods
+
+    - Remember: The compiler "shortens" names internally - so make them understandable!
+    - Good names tell a story; they replace "chatty" code
+  - Magic
+    - You used a number, string, etc w/out any definition of what it does
 - Smells like your code is unstructured
   - Bad Shalom Bayis (Too Many Arguments)
     - Interfaces with many arguments are hard to understand
@@ -58,14 +70,6 @@
   - Feature Envy
     - A method _envies_ another class if it's using all of it's methods
     - Might belong in the class it envies
-- Smells like your code is misleading
-  - You Gave ______ A Bad Name
-    - Using a data type in your names (e.g. AuthorNameString)
-    - Not expressing what a method / variable does with the name
-    - Using inconsistent terms - like a connection with Open() and Disconnect() methods
-
-    - Remember: The compiler "shortens" names internally - so make them understandable!
-    - Good names tell a story; they replace "chatty" code
   - Dead Code
     - Code that is not used anywhere
     - JUST DELETE IT - that's what source control is for
