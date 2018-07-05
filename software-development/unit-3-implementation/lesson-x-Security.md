@@ -72,6 +72,7 @@
   8. Indirect attack vectors through social engineering
     - The attacker convinces the user to authorize something
     - Phishing e-mails; scare tactics
+    - [Phone porting](https://www.nextadvisor.com/blog/phone-porting-how-hackers-can-hijack-your-mobile-phone-number/)
     1. Be aware of what information you expose - PII
     2. Be aware of who you trust for 2FA
   9. Infrastructure attack vectors
