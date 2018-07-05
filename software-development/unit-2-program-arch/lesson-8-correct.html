@@ -5,19 +5,19 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <title>Lesson 8 - "Broken" Observable Example</title>
+    <title>Lesson 8 - "Correct" Observable Example</title>
 
     <script>
         $(function () {
             var transactions = [],
-                totals = {};
+                txObservers = [];
 
             $("#btnRemoveAllTransactions").hide().on("click", function (e) {
                 if (confirm("Are you sure you want to remove ALL the transactions?")) {
                     transactions.length = 0;
                     $("#tblTransactions tbody tr").remove();
 
-                    update($("#tblTransactions"));
+                    update();
                 }
             });
 
@@ -58,7 +58,7 @@
                         tr.find(".btnSaveRow").hide();
                         tr.find(".btnEditRow").show();
 
-                        update(tr.closest("table"));
+                        update();
                     })
                     .siblings(".btnEditRow").hide().on("click.editRow", function (e) {
                         var tr = $(this).closest("tr");
@@ -87,60 +87,66 @@
                             }
                         }
 
-                        update(tr.closest("table"));
+                        update();
                         tr.remove();
                     })
                     .closest("tr").find(".form-static").hide();
             });
 
-            function update(table) {
-                updateTable(table);
-                updateTotals(table);
-                updateFuturePayments();
-                updateNegativeWarning();
+            function update() {
+                var NOW = new Date();
+
+                var data = {
+                    transactions: transactions,
+                    totals: transactions.reduce(function (accumulator, current) {
+                        var d = new Date(Date.parse(current.date));
+
+                        return {
+                            paid: accumulator.paid + current.paid,
+                            received: accumulator.received + current.received,
+                            balance: accumulator.balance - current.paid + current.received,
+                            future: accumulator.future + (d > NOW ? current.paid : 0)
+                        };
+                    }, { paid: 0, received: 0, future: 0, balance: 0 })
+                }
+
+                for (var ixObserver = 0; ixObserver < txObservers.length; ixObserver++) {
+                    var callback = txObservers[ixObserver];
+                    callback(data);
+                }
             }
 
-            function updateNegativeWarning() {
-                var balance = totals.received - totals.paid;
+            txObservers.push(updateFuturePayments);
+            txObservers.push(updateTable);
+            txObservers.push(updateNegativeWarning);
+            txObservers.push(updateTotals);
+
+            function updateNegativeWarning(data) {
+                var balance = data.totals.received - data.totals.paid;
                 if (balance >= 0) $("#divNegativeWarning").hide();
                 else $("#divNegativeWarning").show();
             }
 
-            function updateFuturePayments() {
-                var NOW = new Date();
-                var totalFuture = 0;
-
-                for (var ixTransaction = 0; ixTransaction < transactions.length; ixTransaction++) {
-                    var d = new Date(Date.parse(transactions[ixTransaction].date));
-                    if (d > NOW && transactions[ixTransaction].paid > 0) totalFuture += transactions[ixTransaction].paid;
-                }
-
-                if (totalFuture > 0) {
-                    $("#divFuturePayments").show().find("span").text(totalFuture);
+            function updateFuturePayments(data) {
+                if (data.totals.future > 0) {
+                    $("#divFuturePayments").show().find("span").text(data.totals.future);
                 } else {
                     $("#divFuturePayments").hide();
                 }
             }
 
-            function updateTable(table) {
-                if (transactions.length === 0) {
+            function updateTable(data) {
+                if (data.transactions.length === 0) {
                     $("#btnRemoveAllTransactions").hide();
                 } else {
                     $("#btnRemoveAllTransactions").show();
                 }
             }
 
-            function updateTotals(table) {
-                totals = transactions.reduce(function (accumulator, current) {
-                    return {
-                        paid: accumulator.paid + current.paid,
-                        received: accumulator.received + current.received
-                    };
-                }, { paid: 0, received: 0 });
-
-                var totalsRow = table.find("tfoot tr");
-                totalsRow.find("[name=paid]").text(totals.paid);
-                totalsRow.find("[name=received]").text(totals.received);
+            function updateTotals(data) {
+                var totalsRow = $("table tfoot tr");
+                totalsRow.find("[name=paid]").text(data.totals.paid);
+                totalsRow.find("[name=received]").text(data.totals.received);
             }
         });
     </script>
@@ -153,7 +159,7 @@
         </div>
     </div>
 
-    <div id="divNegativeWarning" class="alert alert-danger" style="display:none">Your account balance is negative!</div>
+    <div id="divNegativeWarning" class="alert alert-danger" style="display:none">You're account balance is negative!</div>
     <div id="divFuturePayments" class="alert alert-warning" style="display:none">You have $<span></span> in pending payments</div>
 
     <table id="tblTransactions" class="table">
