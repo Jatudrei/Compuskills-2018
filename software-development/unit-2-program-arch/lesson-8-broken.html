@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <title>Lesson 8 - "Broken" Observable Example</title>
+
+    <script>
+        $(function () {
+            var transactions = [],
+                totals = {};
+
+            $("#btnRemoveAllTransactions").hide().on("click", function (e) {
+                if (confirm("Are you sure you want to remove ALL the transactions?")) {
+                    transactions.length = 0;
+                    $("#tblTransactions tbody tr").remove();
+
+                    update($("#tblTransactions"));
+                }
+            });
+
+            $("#btnAddTransaction").on("click", function (e) {
+                $("<tr>" +
+                    "<td><input type=\"date\" name=\"date\" class=\"form-control\" /><span class=\"form-static\" name=\"date\"></span></td>" +
+                    "<td><input type=\"text\" name=\"payee\" class=\"form-control\" /><span class=\"form-static\" name=\"payee\"></span></td>" +
+                    "<td><input type=\"number\" name=\"paid\" class=\"form-control\" /><span class=\"form-static\" name=\"paid\"></span></td>" +
+                    "<td><input type=\"number\" name=\"received\" class=\"form-control\" /><span class=\"form-static\" name=\"received\"></span></td>" +
+                    "<td>" +
+                        "<button type=\"button\" class=\"btnSaveRow btn btn-primary\"><span class=\"fa fa-floppy-o\"></span> Save</button> " +
+                        "<button type=\"button\" class=\"btnEditRow btn btn-default\"><span class=\"fa fa-pencil\"></span> Edit</button> " +
+                        "<button type=\"button\" class=\"btnRemoveRow btn btn-danger\"><span class=\"fa fa-trash\"></span> Remove</button>" +
+                    "</td > " +
+                "</tr>")
+                    .appendTo($("#tblTransactions"))
+                    .find(".btnSaveRow").on("click.editRow", function (e) {
+                        var tr = $(this).closest("tr");
+                        var transaction = tr.data("transaction");
+                        if (!transaction) {
+                            transaction = {};
+                            transactions.push(transaction);
+                        }
+
+                        transaction.date = tr.find("input[name=date]").val();
+                        transaction.payee = tr.find("input[name=payee]").val();
+                        transaction.paid = parseFloat(tr.find("input[name=paid]").val()) || 0;
+                        transaction.received = parseFloat(tr.find("input[name=received]").val()) || 0;
+                        tr.data("transaction", transaction);
+
+                        tr.find(".form-static[name=date]").text(transaction.date);
+                        tr.find(".form-static[name=payee]").text(transaction.payee);
+                        tr.find(".form-static[name=paid]").text(transaction.paid);
+                        tr.find(".form-static[name=received]").text(transaction.received);
+
+                        tr.find("input").hide();
+                        tr.find(".form-static").show();
+                        tr.find(".btnSaveRow").hide();
+                        tr.find(".btnEditRow").show();
+
+                        update(tr.closest("table"));
+                    })
+                    .siblings(".btnEditRow").hide().on("click.editRow", function (e) {
+                        var tr = $(this).closest("tr");
+                        var transaction = tr.data("transaction");
+
+                        tr.find("input[name=date]").val(transaction.date);
+                        tr.find("input[name=payee]").val(transaction.payee);
+                        tr.find("input[name=paid]").val(transaction.paid);
+                        tr.find("input[name=received]").val(transaction.received);
+
+                        tr.find("input").show();
+                        tr.find(".form-static").hide();
+                        tr.find(".btnSaveRow").show();
+                        tr.find(".btnEditRow").hide();
+                    })
+                    .siblings(".btnRemoveRow").on("click.editRow", function (e) {
+                        var tr = $(this).closest("tr");
+                        var transaction = tr.data("transaction");
+
+                        if (transaction) {
+                            for (var i = 0; i < transactions.length; i++) {
+                                if (transactions[i] === transaction) {
+                                    transactions.splice(i, 1);
+                                    break;
+                                }
+                            }
+                        }
+
+                        update(tr.closest("table"));
+                        tr.remove();
+                    })
+                    .closest("tr").find(".form-static").hide();
+            });
+
+            function update(table) {
+                updateTable(table);
+                updateTotals(table);
+                updateFuturePayments();
+                updateNegativeWarning();
+            }
+
+            function updateNegativeWarning() {
+                var balance = totals.received - totals.paid;
+                if (balance >= 0) $("#divNegativeWarning").hide();
+                else $("#divNegativeWarning").show();
+            }
+
+            function updateFuturePayments() {
+                var NOW = new Date();
+                var totalFuture = 0;
+
+                for (var ixTransaction = 0; ixTransaction < transactions.length; ixTransaction++) {
+                    var d = new Date(Date.parse(transactions[ixTransaction].date));
+                    if (d > NOW && transactions[ixTransaction].paid > 0) totalFuture += transactions[ixTransaction].paid;
+                }
+
+                if (totalFuture > 0) {
+                    $("#divFuturePayments").show().find("span").text(totalFuture);
+                } else {
+                    $("#divFuturePayments").hide();
+                }
+            }
+
+            function updateTable(table) {
+                if (transactions.length === 0) {
+                    $("#btnRemoveAllTransactions").hide();
+                } else {
+                    $("#btnRemoveAllTransactions").show();
+                }
+            }
+
+            function updateTotals(table) {
+                totals = transactions.reduce(function (accumulator, current) {
+                    return {
+                        paid: accumulator.paid + current.paid,
+                        received: accumulator.received + current.received
+                    };
+                }, { paid: 0, received: 0 });
+
+                var totalsRow = table.find("tfoot tr");
+                totalsRow.find("[name=paid]").text(totals.paid);
+                totalsRow.find("[name=received]").text(totals.received);
+            }
+        });
+    </script>
+</head>
+<body class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" id="btnAddTransaction" class="btn btn-default"><span class="fa fa-plus"></span> Add Transaction</button>
+            <button type="button" id="btnRemoveAllTransactions" class="btn btn-danger"><span class="fa fa-trash"></span> Remove All</button>
+        </div>
+    </div>
+
+    <div id="divNegativeWarning" class="alert alert-danger" style="display:none">You're account balance is negative!</div>
+    <div id="divFuturePayments" class="alert alert-warning" style="display:none">You have $<span></span> in pending payments</div>
+
+    <table id="tblTransactions" class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Payee</th>
+                <th>Paid</th>
+                <th>Received</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr class="table-info">
+                <td name="date"></td>
+                <td name="payee"></td>
+                <td name="paid"></td>
+                <td name="received"></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
